@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rancangan Proyek Posyandu Pintar - Gemini AI OCR & Validation</title>
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .code-font {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+</head>
+<body class="bg-slate-900 text-slate-100 min-h-screen selection:bg-teal-500 selection:text-slate-950">
+
+  <!-- APP CONTAINER -->
+  <div class="flex flex-col min-h-screen">
+
+    <!-- HEADER / NAVIGATION -->
+    <header class="border-b border-slate-800 bg-slate-950/80 backdrop-blur sticky top-0 z-50 px-4 py-4 md:px-8">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+        <div class="flex items-center gap-3">
+          <div class="p-2 bg-gradient-to-tr from-teal-500 to-emerald-400 rounded-xl text-slate-950 shadow-lg shadow-teal-500/20">
+            <i data-lucide="sparkles" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h1 class="text-xl font-bold tracking-tight bg-gradient-to-r from-teal-400 via-emerald-400 to-cyan-400 bg-clip-text text-transparent">GemiPosyandu</h1>
+            <p class="text-xs text-slate-400">Rancangan & Sistem Simulasi OCR AI Terintegrasi</p>
+          </div>
+        </div>
+        <div class="flex items-center gap-2 bg-slate-900 p-1 rounded-lg border border-slate-800 text-sm">
+          <button onclick="switchTab('design')" id="btn-tab-design" class="px-4 py-1.5 rounded-md font-semibold transition bg-teal-500 text-slate-950 shadow-sm">
+            <span class="flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4"></i> Dokumen & Flowchart</span>
+          </button>
+          <button onclick="switchTab('simulator')" id="btn-tab-simulator" class="px-4 py-1.5 rounded-md font-semibold transition text-slate-400 hover:text-slate-200">
+            <span class="flex items-center gap-2"><i data-lucide="play" class="w-4 h-4"></i> Live Simulator AI</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="flex-grow max-w-7xl w-full mx-auto p-4 md:p-8">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: DOKUMEN RANCANGAN PROYEK (DESIGN) -->
+      <!-- ========================================== -->
+      <section id="tab-design" class="space-y-8 block">
+        
+        <!-- Hero Intro -->
+        <div class="relative bg-gradient-to-br from-slate-950 to-slate-900 border border-slate-800 rounded-2xl p-6 md:p-10 overflow-hidden shadow-2xl">
+          <div class="absolute -right-10 -top-10 w-40 h-40 bg-teal-500/10 rounded-full blur-3xl"></div>
+          <div class="absolute -left-10 -bottom-10 w-40 h-40 bg-emerald-500/10 rounded-full blur-3xl"></div>
+          
+          <div class="max-w-3xl">
+            <span class="px-3 py-1 bg-teal-500/10 border border-teal-500/20 rounded-full text-xs font-semibold text-teal-400 tracking-wider uppercase">Rancangan Cetak Biru Sistem</span>
+            <h2 class="text-3xl md:text-4xl font-extrabold text-slate-100 mt-3 tracking-tight">Sistem Digitalisasi Data Posyandu Berbasis Vision AI</h2>
+            <p class="text-slate-400 mt-4 leading-relaxed">
+              Sebuah solusi teknologi inklusif yang dirancang khusus untuk mempermudah kader Posyandu di lapangan dalam mempercepat registrasi data administratif (KTP, KK, Akta Lahir) tanpa input manual yang melelahkan dan rentan kesalahan. Menggunakan Gemini API (Vision & Language Model) dengan protokol privasi lokal terbaik.
+            </p>
+          </div>
+        </div>
+
+        <!-- FLOWCHART RANCANGAN SISTEM (SVG STANDAR) -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 shadow-xl">
+          <div class="border-b border-slate-800 pb-5 mb-6">
+            <span class="px-2.5 py-0.5 bg-teal-500/10 text-teal-400 text-xs font-bold rounded-full border border-teal-500/20 uppercase tracking-wider">Visual Arsitektur</span>
+            <h3 class="text-xl font-bold text-slate-100 mt-1 flex items-center gap-2">
+              <i data-lucide="git-fork" class="text-teal-400 w-5 h-5"></i> Flowchart Logika GemiPosyandu (Simbol Standar ISO)
+            </h3>
+            <p class="text-xs text-slate-400 mt-1">Diagram alir standar di bawah menggambarkan rute validasi, penanganan error foto buram, anonimisasi, dan pencocokan semantik.</p>
+          </div>
+
+          <!-- CONTAINER SVG FLOWCHART RESPONSIVE -->
+          <div class="w-full overflow-x-auto bg-slate-900/40 rounded-xl border border-slate-800/80 p-4 flex justify-center">
+            <svg class="w-full max-w-3xl h-auto" viewBox="0 0 800 1050" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <!-- Defs untuk marker panah dan filter shadow -->
+              <defs>
+                <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#94A3B8"/>
+                </marker>
+                <marker id="arrow-teal" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#14B8A6"/>
+                </marker>
+                <marker id="arrow-red" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                  <path d="M 0 1.5 L 10 5 L 0 8.5 z" fill="#EF4444"/>
+                </marker>
+                <filter id="shadow" x="-5%" y="-5%" width="110%" height="110%">
+                  <feDropShadow dx="0" dy="4" stdDeviation="4" flood-color="#000000" flood-opacity="0.25"/>
+                </filter>
+              </defs>
+
+              <!-- Grid background halus -->
+              <g stroke="#1E293B" stroke-width="1" opacity="0.3">
+                <path d="M0,50 H800 M0,150 H800 M0,250 H800 M0,350 H800 M0,450 H800 M0,550 H800 M0,650 H800 M0,750 H800 M0,850 H800 M0,950 H800" />
+                <path d="M100,0 V1050 M200,0 V1050 M300,0 V1050 M400,0 V1050 M500,0 V1050 M600,0 V1050 M700,0 V1050" />
+              </g>
+
+              <!-- 1. START TERMINATOR -->
+              <rect x="300" y="30" width="200" height="50" rx="25" fill="#115E59" stroke="#14B8A6" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="61" fill="#CCFBF1" font-family="Arial" font-size="13" font-weight="bold" text-anchor="middle">MULAI: KADER BUKA APP</text>
+              <path d="M400,80 L400,114" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <!-- 2. PROSES: AMBIL FOTO -->
+              <rect x="280" y="115" width="240" height="60" rx="6" fill="#1E293B" stroke="#475569" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="142" fill="#E2E8F0" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">KADER AMBIL FOTO DOKUMEN</text>
+              <text x="400" y="158" fill="#94A3B8" font-family="Arial" font-size="11" text-anchor="middle">(KTP, KK lama, atau Akta Lahir)</text>
+              <path d="M400,175 L400,209" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <!-- 3. DECISION: CEK KETAJAMAN LOKAL (LAPLACIAN) -->
+              <polygon points="400,210 540,265 400,320 260,265" fill="#1E1B4B" stroke="#6366F1" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="258" fill="#E0E7FF" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">APAKAH FOTO JELAS?</text>
+              <text x="400" y="276" fill="#A5B4FC" font-family="Arial" font-size="11" text-anchor="middle">(Laplacian Variance &gt; 50)</text>
+              
+              <!-- Alur Gagal (Blur) -> Kembali ke ambil foto -->
+              <path d="M260,265 L170,265 A 10 10 0 0 1 160,255 L160,145 A 10 10 0 0 1 170,135 L274,135" stroke="#EF4444" stroke-width="2" fill="none" marker-end="url(#arrow-red)"/>
+              <text x="210" y="255" fill="#EF4444" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">TIDAK (BURAM)</text>
+              
+              <!-- Info Box Penanganan Error Buram -->
+              <rect x="50" y="165" width="210" height="60" rx="4" fill="#7F1D1D" stroke="#EF4444" stroke-width="1" opacity="0.9"/>
+              <text x="155" y="185" fill="#FEE2E2" font-family="Arial" font-size="11" font-weight="bold" text-anchor="middle">Pencegahan Sisi Klien</text>
+              <text x="155" y="200" fill="#FCA5A5" font-family="Arial" font-size="10" text-anchor="middle">Tolak berkas lokal, beri panduan</text>
+              <text x="155" y="213" fill="#FCA5A5" font-family="Arial" font-size="10" text-anchor="middle">fokus & pencahayaan baru.</text>
+
+              <!-- Alur Lolos (Jelas) -->
+              <path d="M400,320 L400,354" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-teal)"/>
+              <text x="425" y="340" fill="#10B981" font-family="Arial" font-size="12" font-weight="bold">YA (JELAS)</text>
+
+              <!-- 4. PROSES: PRIVASI (MASKING & ENKRIPSI LOKAL) -->
+              <rect x="260" y="355" width="280" height="65" rx="6" fill="#1E293B" stroke="#10B981" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="382" fill="#E2E8F0" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">ANONIMISASI & ENKRIPSI LOKAL</text>
+              <text x="400" y="398" fill="#A7F3D0" font-family="Arial" font-size="11" text-anchor="middle">(Masking NIK parsial + Enkripsi AES-256)</text>
+              <path d="M400,420 L400,454" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <!-- 5. DATA SYMBOL: TRANSMISI AMAN -->
+              <polygon points="270,455 550,455 510,510 230,510" fill="#061F2D" stroke="#0EA5E9" stroke-width="2" filter="url(#shadow)"/>
+              <text x="390" y="482" fill="#E0F2FE" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">TRANSMISI AMAN TLS 1.3</text>
+              <text x="390" y="498" fill="#38BDF8" font-family="Arial" font-size="11" text-anchor="middle">(Kirim Payload Gambar ke Gemini API)</text>
+              <path d="M400,510 L400,544" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <!-- 6. PROSES: GEMINI AI PROCESSING -->
+              <rect x="250" y="545" width="300" height="70" rx="6" fill="#0F172A" stroke="#38BDF8" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="572" fill="#E2E8F0" font-family="Arial" font-size="13" font-weight="bold" text-anchor="middle">AI ENGINE: GEMINI 2.5 FLASH</text>
+              <text x="400" y="590" fill="#38BDF8" font-family="Arial" font-size="11" text-anchor="middle">Ekstraksi OCR otomatis & strukturisasi JSON</text>
+              <text x="400" y="604" fill="#38BDF8" font-family="Arial" font-size="10" text-anchor="middle">(Memetakan NIK, Nama, TTL, Alamat)</text>
+              <path d="M400,615 L400,649" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <!-- 7. DECISION: CEK DUPLIKASI SEMANTIK -->
+              <polygon points="400,650 560,710 400,770 240,710" fill="#2D1B00" stroke="#F59E0B" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="702" fill="#FEF3C7" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">TERDETEKSI DUPLIKASI SEMANTIK?</text>
+              <text x="400" y="720" fill="#FCD34D" font-family="Arial" font-size="11" text-anchor="middle">(Analisis fonetis: "M. Rizki" == "Muhammad Rizky")</text>
+
+              <!-- Alur Ada Duplikat (Kanan) -->
+              <path d="M560,710 L640,710 A 10 10 0 0 1 650,720 L650,774" stroke="#F59E0B" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+              <text x="605" y="700" fill="#F59E0B" font-family="Arial" font-size="11" font-weight="bold">YA (MIRIP)</text>
+
+              <!-- 8. PROSES: REKONSILIASI KADER -->
+              <rect x="550" y="775" width="200" height="65" rx="6" fill="#1E293B" stroke="#F59E0B" stroke-width="2" filter="url(#shadow)"/>
+              <text x="650" y="802" fill="#E2E8F0" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">REKONSILIASI MANUAL KADER</text>
+              <text x="650" y="818" fill="#FCD34D" font-family="Arial" font-size="11" text-anchor="middle">(Opsi: Gabungkan / Entri Baru)</text>
+              <path d="M650,840 L650,910 A 10 10 0 0 1 640,920 L530,920" stroke="#94A3B8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+
+              <!-- Alur Data Unik (Bawah) -->
+              <path d="M400,770 L400,884" stroke="#10B981" stroke-width="2" marker-end="url(#arrow-teal)"/>
+              <text x="410" y="810" fill="#10B981" font-family="Arial" font-size="11" font-weight="bold">TIDAK (UNIK)</text>
+
+              <!-- 9. PROSES: SIMPAN DATABASE TERENKRIPSI -->
+              <rect x="270" y="885" width="260" height="60" rx="6" fill="#115E59" stroke="#14B8A6" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="912" fill="#E2E8F0" font-family="Arial" font-size="12" font-weight="bold" text-anchor="middle">SIMPAN KE DATABASE PUSAT</text>
+              <text x="400" y="928" fill="#A7F3D0" font-family="Arial" font-size="11" text-anchor="middle">(Penyimpanan Terenkripsi AES-256)</text>
+              <path d="M400,945 L400,979" stroke="#94A3B8" stroke-width="2" marker-end="url(#arrow)"/>
+
+              <!-- 10. END TERMINATOR -->
+              <rect x="300" y="980" width="200" height="45" rx="22.5" fill="#7F1D1D" stroke="#F87171" stroke-width="2" filter="url(#shadow)"/>
+              <text x="400" y="1008" fill="#FEE2E2" font-family="Arial" font-size="13" font-weight="bold" text-anchor="middle">SELESAI</text>
+            </svg>
+          </div>
+        </div>
+
+        <!-- 3 Poin Utama Sesuai Instruksi -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+          <!-- KARTU POIN 1: ARSITEKTUR ALUR -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 hover:border-slate-700/80 transition flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center text-teal-400 mb-5">
+                <i data-lucide="smartphone" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-100">1. Arsitektur Alur & Penanganan Buram</h3>
+              <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                Kader Posyandu mengambil gambar dokumen melalui kamera smartphone. Aplikasi melakukan pra-pemrosesan citra lokal sebelum dikirim ke API Gemini untuk ekstraksi JSON secara terstruktur.
+              </p>
+              <div class="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
+                <h4 class="text-xs font-semibold text-teal-400 uppercase tracking-wider">Metode Penanganan Buram:</h4>
+                <ul class="text-xs text-slate-400 mt-2 space-y-1.5 list-disc pl-4">
+                  <li>Deteksi ketajaman gambar lokal (Laplacian variance filter) sebelum diunggah.</li>
+                  <li>Gemini Vision multi-prompt fallback untuk memperjelas pola karakter buram.</li>
+                  <li>Sistem penolakan proaktif jika tingkat keterbacaan (confidence score) di bawah 75%.</li>
+                </ul>
+              </div>
+            </div>
+            <button onclick="showDetailModal('arsitektur')" class="mt-6 text-xs font-semibold text-teal-400 hover:text-teal-300 flex items-center gap-1.5 transition">
+              Detail Arsitektur Alur <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- KARTU POIN 2: VALIDASI SEMANTIK -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 hover:border-slate-700/80 transition flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center text-teal-400 mb-5">
+                <i data-lucide="git-merge" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-100">2. Validasi & Duplikasi Semantik</h3>
+              <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                Mencegah kekacauan data karena typo manual atau entri ganda berbasis penamaan lokal Indonesia yang memiliki banyak variasi singkatan dan ejaan.
+              </p>
+              <div class="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
+                <h4 class="text-xs font-semibold text-teal-400 uppercase tracking-wider">Metode Semantik AI:</h4>
+                <ul class="text-xs text-slate-400 mt-2 space-y-1.5 list-disc pl-4">
+                  <li>Normalisasi teks otomatis (misal: "M." menjadi "Muhammad", "Rizki" menjadi "Rizky").</li>
+                  <li>Skor kemiripan menggunakan model bahasa besar untuk mencocokkan ejaan yang setara secara fonetis.</li>
+                  <li>Validasi silang silang KK vs KTP berbasis alamat yang identik.</li>
+                </ul>
+              </div>
+            </div>
+            <button onclick="showDetailModal('validasi')" class="mt-6 text-xs font-semibold text-teal-400 hover:text-teal-300 flex items-center gap-1.5 transition">
+              Detail Validasi Semantik <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+          <!-- KARTU POIN 3: KEAMANAN & PRIVASI -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 hover:border-slate-700/80 transition flex flex-col justify-between">
+            <div>
+              <div class="w-12 h-12 bg-teal-500/10 rounded-xl flex items-center justify-center text-teal-400 mb-5">
+                <i data-lucide="shield-check" class="w-6 h-6"></i>
+              </div>
+              <h3 class="text-lg font-bold text-slate-100">3. Keamanan & Kepatuhan Hukum</h3>
+              <p class="text-slate-400 text-sm mt-3 leading-relaxed">
+                Melindungi data sensitif warga (NIK, Alamat, Ibu Kandung) sesuai amanat Undang-Undang Perlindungan Data Pribadi (UU PDP) Indonesia.
+              </p>
+              <div class="mt-4 p-3 bg-slate-900 rounded-lg border border-slate-800">
+                <h4 class="text-xs font-semibold text-teal-400 uppercase tracking-wider">Protokol Keamanan:</h4>
+                <ul class="text-xs text-slate-400 mt-2 space-y-1.5 list-disc pl-4">
+                  <li>Enkripsi ujung-ke-ujung (AES-256) untuk data diam dan HTTPS untuk data dinamis.</li>
+                  <li>Proses anonimisasi / masking parsial pada NIK saat dikirim untuk validasi non-struktural.</li>
+                  <li>Persetujuan digital eksplisit (Consent Form) dari warga sebelum kamera diaktifkan.</li>
+                </ul>
+              </div>
+            </div>
+            <button onclick="showDetailModal('keamanan')" class="mt-6 text-xs font-semibold text-teal-400 hover:text-teal-300 flex items-center gap-1.5 transition">
+              Detail Evaluasi Keamanan <i data-lucide="arrow-right" class="w-4 h-4"></i>
+            </button>
+          </div>
+
+        </div>
+
+        <!-- Tombol CTA untuk mencoba simulator -->
+        <div class="bg-gradient-to-r from-teal-500/10 to-cyan-500/10 border border-teal-500/20 rounded-2xl p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div>
+            <h4 class="text-md font-bold text-slate-100 flex items-center gap-2">
+              <i data-lucide="info" class="w-5 h-5 text-teal-400"></i> Ingin melihat sistem ini bekerja secara langsung?
+            </h4>
+            <p class="text-slate-400 text-xs mt-1">Kami telah menyediakan Sandbox Simulator AI yang mensimulasikan panggilan API Gemini, enkripsi lokal, dan logika pencocokan semantik.</p>
+          </div>
+          <button onclick="switchTab('simulator')" class="px-5 py-2.5 bg-teal-500 text-slate-950 font-bold rounded-xl shadow-lg hover:bg-teal-400 transition flex items-center gap-2 shrink-0">
+            Mulai Simulator AI <i data-lucide="arrow-right" class="w-4 h-4"></i>
+          </button>
+        </div>
+
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: LIVE SIMULATOR AI -->
+      <!-- ========================================== -->
+      <section id="tab-simulator" class="space-y-8 hidden">
+        
+        <!-- API Setup Banner / Reminder -->
+        <div class="bg-slate-950 border border-slate-800 rounded-2xl p-4 md:p-6 flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
+          <div class="space-y-1">
+            <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+              <i data-lucide="settings" class="w-5 h-5 text-teal-400"></i> Konfigurasi API Gemini
+            </h3>
+            <p class="text-sm text-slate-400">
+              Aplikasi ini menggunakan model <code class="bg-slate-900 px-1.5 py-0.5 rounded text-teal-400 code-font">gemini-2.5-flash-preview-09-2025</code> untuk melakukan OCR dan analisis semantik.
+            </p>
+          </div>
+          <div class="w-full md:w-auto">
+            <label class="block text-xs text-slate-400 font-semibold mb-1 uppercase tracking-wider">Kunci API Gemini Anda (Opsional):</label>
+            <div class="relative">
+              <input type="password" id="input-api-key" placeholder="Kunci API otomatis dari sistem..." class="w-full md:w-72 bg-slate-900 border border-slate-800 rounded-xl px-4 py-2 text-sm text-slate-100 focus:outline-none focus:border-teal-500/50 code-font">
+              <div class="absolute right-3 top-2.5 text-slate-500 hover:text-slate-300 cursor-pointer" onclick="togglePasswordVisibility('input-api-key')">
+                <i data-lucide="eye" class="w-4 h-4" id="eye-icon"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          
+          <!-- PANEL INPUT (SIMULASI KADER) -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between space-y-6">
+            <div>
+              <h3 class="text-lg font-bold text-slate-100 border-b border-slate-800 pb-3 flex items-center gap-2">
+                <i data-lucide="camera" class="w-5 h-5 text-teal-400"></i> Panel Kader: Pengambilan & Simulasi Foto
+              </h3>
+
+              <!-- Seleksi Jenis Dokumen -->
+              <div class="mt-4">
+                <label class="block text-xs text-slate-400 font-bold mb-2 uppercase tracking-wider">1. Pilih Dokumen Sasaran:</label>
+                <div class="grid grid-cols-3 gap-2">
+                  <button onclick="selectDocType('ktp')" id="btn-doc-ktp" class="p-3 bg-teal-500/10 border border-teal-500/30 text-teal-400 rounded-xl text-center transition hover:border-teal-400">
+                    <i data-lucide="contact" class="w-5 h-5 mx-auto mb-1"></i>
+                    <span class="text-xs font-semibold">KTP</span>
+                  </button>
+                  <button onclick="selectDocType('kk')" id="btn-doc-kk" class="p-3 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-center transition hover:border-slate-700">
+                    <i data-lucide="users" class="w-5 h-5 mx-auto mb-1"></i>
+                    <span class="text-xs font-semibold">Kartu Keluarga</span>
+                  </button>
+                  <button onclick="selectDocType('akta')" id="btn-doc-akta" class="p-3 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-center transition hover:border-slate-700">
+                    <i data-lucide="baby" class="w-5 h-5 mx-auto mb-1"></i>
+                    <span class="text-xs font-semibold">Akta Lahir</span>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Simulasi Kondisi Foto (Kamera) -->
+              <div class="mt-6">
+                <label class="block text-xs text-slate-400 font-bold mb-2 uppercase tracking-wider">2. Atur Kondisi Gambar Kamera HP:</label>
+                <div class="grid grid-cols-2 gap-2">
+                  <button onclick="setImageCondition('clear')" id="btn-cond-clear" class="p-2.5 bg-teal-500/15 border border-teal-500/30 text-teal-400 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition">
+                    <i data-lucide="sun" class="w-4 h-4"></i> Tajam & Terang (Ideal)
+                  </button>
+                  <button onclick="setImageCondition('blurry')" id="btn-cond-blurry" class="p-2.5 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition hover:border-red-500/30 hover:text-red-400">
+                    <i data-lucide="cloud-rain" class="w-4 h-4"></i> Buram & Minim Cahaya
+                  </button>
+                </div>
+              </div>
+
+              <!-- Live Preview Image Container -->
+              <div class="mt-6">
+                <div class="relative bg-slate-900 rounded-xl border border-slate-800 overflow-hidden h-48 flex items-center justify-center">
+                  <!-- Visual Blur Filter Applied Dynamically -->
+                  <div id="simulated-image-layer" class="absolute inset-0 bg-cover bg-center transition-all duration-300" style="background-image: url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=600&auto=format&fit=crop'); filter: blur(0px);"></div>
+                  <div class="absolute inset-0 bg-slate-950/60 flex flex-col justify-end p-4">
+                    <span id="badge-quality" class="self-start px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-extrabold tracking-wider uppercase rounded border border-emerald-500/30">
+                      KUALITAS: BAIK (SIAP OCR)
+                    </span>
+                    <p id="preview-filename" class="text-xs text-slate-300 font-semibold mt-1">KTP_Ibu_Balita_01.jpg</p>
+                    <p class="text-[10px] text-slate-400">Simulasi visualisasi pra-pemrosesan kamera</p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Local Pre-processing Metrics -->
+              <div class="mt-4 p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-2 text-xs">
+                <div class="flex justify-between items-center">
+                  <span class="text-slate-400">Tingkat Ketajaman (Laplacian):</span>
+                  <span id="text-laplacian" class="font-semibold text-emerald-400">84.2 (Lolos Ambang Batas >50)</span>
+                </div>
+                <div class="w-full bg-slate-800 rounded-full h-1.5">
+                  <div id="bar-laplacian" class="bg-emerald-400 h-1.5 rounded-full transition-all duration-300" style="width: 84%"></div>
+                </div>
+              </div>
+
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 space-y-3">
+              <button onclick="processOCR()" id="btn-process-ocr" class="w-full py-3 bg-gradient-to-r from-teal-500 to-emerald-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-teal-500/10 hover:shadow-teal-500/20 transition flex items-center justify-center gap-2">
+                <i data-lucide="cpu" class="w-5 h-5"></i> Kirim ke Gemini AI (OCR)
+              </button>
+            </div>
+          </div>
+
+          <!-- PANEL OUTPUT (HASIL PROSESING AI GEMINI) -->
+          <div class="bg-slate-950 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between space-y-6">
+            <div>
+              <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2">
+                  <i data-lucide="terminal" class="w-5 h-5 text-teal-400"></i> Hasil Pemrosesan AI & Keamanan
+                </h3>
+                <span id="badge-api-status" class="px-2.5 py-0.5 bg-slate-900 text-slate-400 text-[10px] font-bold rounded-full border border-slate-800">
+                  READY
+                </span>
+              </div>
+
+              <!-- Enkripsi Status -->
+              <div class="mt-4 p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 flex items-center gap-3">
+                <div class="p-2 bg-emerald-500/10 rounded-lg text-emerald-400" id="encryption-icon-container">
+                  <i data-lucide="lock" class="w-4 h-4"></i>
+                </div>
+                <div class="text-xs">
+                  <p class="font-semibold text-slate-200" id="encryption-title">Protokol Keamanan Lokal Aktif</p>
+                  <p class="text-slate-400" id="encryption-desc">Data di-hash dan di-mask sebelum transmisi TLS 1.3.</p>
+                </div>
+              </div>
+
+              <!-- Output JSON atau Error Handling Panel -->
+              <div class="mt-6 space-y-3">
+                <div class="flex justify-between items-center">
+                  <label class="block text-xs text-slate-400 font-bold uppercase tracking-wider">Struktur Respons Data Digital (JSON):</label>
+                  <button onclick="copyToClipboard('json-output-text')" class="text-[10px] bg-slate-900 text-slate-300 px-2 py-1 rounded border border-slate-800 hover:border-slate-700 flex items-center gap-1">
+                    <i data-lucide="copy" class="w-3 h-3"></i> Salin
+                  </button>
+                </div>
+                
+                <div class="relative bg-slate-900 rounded-xl border border-slate-800 p-4 h-64 overflow-y-auto">
+                  <!-- Loading Animation Overlay -->
+                  <div id="ocr-loader" class="absolute inset-0 bg-slate-900/90 backdrop-blur-sm flex flex-col justify-center items-center space-y-3 hidden">
+                    <div class="w-8 h-8 border-4 border-teal-500 border-t-transparent rounded-full animate-spin"></div>
+                    <p class="text-xs text-slate-300 font-semibold" id="loader-message">Mengirim data via enkripsi aman...</p>
+                  </div>
+                  
+                  <pre class="text-xs text-emerald-400 code-font whitespace-pre-wrap leading-relaxed" id="json-output-text">{
+  "status": "idle",
+  "message": "Silakan klik tombol 'Kirim ke Gemini AI' untuk memulai ekstraksi OCR."
+}</pre>
+                </div>
+              </div>
+
+              <!-- Analisis Duplikasi Semantik (Jika data valid) -->
+              <div class="mt-4 p-3 bg-slate-900 rounded-xl border border-slate-800 space-y-2 hidden" id="duplication-panel">
+                <h4 class="text-xs font-bold text-teal-400 uppercase tracking-wider flex items-center gap-1.5">
+                  <i data-lucide="git-merge" class="w-4 h-4"></i> Hasil Pemeriksaan Duplikasi Semantik
+                </h4>
+                <p class="text-[11px] text-slate-300" id="duplication-analysis">
+                  Sistem mengecek data di atas terhadap database lama posyandu secara semantik.
+                </p>
+              </div>
+
+            </div>
+
+            <div class="pt-4 border-t border-slate-800 text-center">
+              <p class="text-[10px] text-slate-500">
+                Disimulasikan menggunakan Gemini 2.5 Flash SDK dengan model penanganan fallback lokal.
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-slate-800 bg-slate-950 py-6 text-center text-slate-500 text-xs">
+      <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+        <p>&copy; 2026 GemiPosyandu. Dirancang untuk Peningkatan Mutu Kesehatan Nasional.</p>
+        <div class="flex gap-4">
+          <a href="#" class="hover:text-slate-300">Kebijakan Privasi (UU PDP)</a>
+          <a href="#" class="hover:text-slate-300">Dokumentasi API</a>
+        </div>
+      </div>
+    </footer>
+
+  </div>
+
+  <!-- ========================================== -->
+  <!-- MODAL DETAIL PEMBAHASAN MATERI -->
+  <!-- ========================================== -->
+  <div id="detail-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm flex items-center justify-center p-4 z-50 hidden">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl w-full max-w-2xl overflow-hidden shadow-2xl flex flex-col max-h-[85vh]">
+      
+      <!-- Modal Header -->
+      <div class="p-5 border-b border-slate-800 flex justify-between items-center bg-slate-950">
+        <h3 class="text-lg font-bold text-slate-100 flex items-center gap-2" id="modal-title">
+          <i data-lucide="file-text" class="text-teal-400 w-5 h-5"></i> Detail Dokumen
+        </h3>
+        <button onclick="closeModal()" class="p-1.5 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-slate-200 transition">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Modal Body (Scrollable) -->
+      <div class="p-6 overflow-y-auto space-y-6 text-sm text-slate-300 leading-relaxed" id="modal-content">
+        <!-- Konten berganti secara dinamis -->
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="p-4 border-t border-slate-800 bg-slate-950 flex justify-end">
+        <button onclick="closeModal()" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-slate-100 rounded-lg text-xs font-semibold transition">
+          Tutup Pembahasan
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // State Aplikasi
+    let currentTab = 'design';
+    let selectedDoc = 'ktp';
+    let imgCondition = 'clear';
+
+    // Contoh Data Mentah untuk Mocking/Simulator jika API kunci tidak ada / fallback
+    const mockData = {
+      ktp: {
+        clear: {
+          nik: "3216050409950002",
+          nama: "SITI AMINAH",
+          alamat: "RT 03 / RW 05, Desa Mekarsari, Kec. Cikarang Selatan",
+          tgl_lahir: "1995-09-04",
+          ibu_kandung: "NURHAYATI",
+          confidence_score: "98.5%",
+          warning: "None"
+        },
+        blurry: {
+          error_code: "IMAGE_RESOLUTION_LOW",
+          message: "Gambar terdeteksi buram (skor ketajaman < 50). Karakter tidak terbaca dengan presisi.",
+          suggestion: "Mohon ambil ulang foto dengan pencahayaan cukup dan kamera fokus tegak lurus pada KTP."
+        }
+      },
+      kk: {
+        clear: {
+          no_kk: "3216050101180054",
+          kepala_keluarga: "M. RIZKI ASTANA",
+          anggota_keluarga: [
+            { nama: "M. RIZKI ASTANA", status: "Suami" },
+            { nama: "SITI AMINAH", status: "Istri" },
+            { nama: "NAILA KHAIRUNNISA", status: "Anak" }
+          ],
+          alamat: "RT 03 / RW 05, Desa Mekarsari",
+          confidence_score: "96.1%",
+          warning: "None"
+        },
+        blurry: {
+          error_code: "METADATA_UNREADABLE",
+          message: "Format tabel nomor KK tidak terbaca karena refleksi cahaya di bagian atas.",
+          suggestion: "Kurangi pantulan cahaya lampu pada permukaan plastik KK lama."
+        }
+      },
+      akta: {
+        clear: {
+          no_akta: "3216-LU-25112021-0001",
+          nama_anak: "NAILA KHAIRUNNISA",
+          ayah: "MUHAMMAD RIZKY ASTANA",
+          ibu: "SITI AMINAH",
+          tgl_lahir: "2021-11-25",
+          confidence_score: "94.8%",
+          warning: "Ejaan nama ayah di Akta sedikit berbeda dengan KTP/KK."
+        },
+        blurry: {
+          error_code: "TEXT_DISTORTED",
+          message: "Kertas akta tua terlalu kuning dan buram di bagian tanggal lahir anak.",
+          suggestion: "Gunakan fitur pemindai dokumen flat atau letakkan di atas alas hitam kontras tinggi."
+        }
+      }
+    };
+
+    // Fungsi Inisialisasi
+    window.onload = function() {
+      // Inisialisasi ikon Lucide
+      lucide.createIcons();
+    };
+
+    // Navigasi Tab
+    function switchTab(tabId) {
+      currentTab = tabId;
+      const btnDesign = document.getElementById('btn-tab-design');
+      const btnSim = document.getElementById('btn-tab-simulator');
+      const tabDesign = document.getElementById('tab-design');
+      const tabSimulator = document.getElementById('tab-simulator');
+
+      if (tabId === 'design') {
+        btnDesign.className = "px-4 py-1.5 rounded-md font-semibold transition bg-teal-500 text-slate-950 shadow-sm";
+        btnSim.className = "px-4 py-1.5 rounded-md font-semibold transition text-slate-400 hover:text-slate-200";
+        tabDesign.classList.remove('hidden');
+        tabDesign.classList.add('block');
+        tabSimulator.classList.remove('block');
+        tabSimulator.classList.add('hidden');
+      } else {
+        btnSim.className = "px-4 py-1.5 rounded-md font-semibold transition bg-teal-500 text-slate-950 shadow-sm";
+        btnDesign.className = "px-4 py-1.5 rounded-md font-semibold transition text-slate-400 hover:text-slate-200";
+        tabSimulator.classList.remove('hidden');
+        tabSimulator.classList.add('block');
+        tabDesign.classList.remove('block');
+        tabDesign.classList.add('hidden');
+      }
+    }
+
+    // Ubah Tipe Dokumen yang Disimulasikan
+    function selectDocType(type) {
+      selectedDoc = type;
+      
+      // Reset Tombol-tombol
+      document.getElementById('btn-doc-ktp').className = "p-3 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-center transition hover:border-slate-700";
+      document.getElementById('btn-doc-kk').className = "p-3 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-center transition hover:border-slate-700";
+      document.getElementById('btn-doc-akta').className = "p-3 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-center transition hover:border-slate-700";
+
+      document.getElementById(`btn-doc-${type}`).className = "p-3 bg-teal-500/10 border border-teal-500/30 text-teal-400 rounded-xl text-center transition hover:border-teal-400";
+
+      // Ubah data pendukung visual
+      const filename = document.getElementById('preview-filename');
+      const layer = document.getElementById('simulated-image-layer');
+      
+      if (type === 'ktp') {
+        filename.textContent = "KTP_Ibu_Balita_01.jpg";
+        layer.style.backgroundImage = "url('https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?q=80&w=600&auto=format&fit=crop')";
+      } else if (type === 'kk') {
+        filename.textContent = "Kartu_Keluarga_Lama_Burem.jpg";
+        layer.style.backgroundImage = "url('https://images.unsplash.com/photo-1457369804613-52c61a468e7d?q=80&w=600&auto=format&fit=crop')";
+      } else {
+        filename.textContent = "Akta_Kelahiran_Anak.jpg";
+        layer.style.backgroundImage = "url('https://images.unsplash.com/photo-1583521214690-73421a1829a9?q=80&w=600&auto=format&fit=crop')";
+      }
+    }
+
+    // Ubah Kondisi Gambar (Buram / Terang)
+    function setImageCondition(cond) {
+      imgCondition = cond;
+      
+      const btnClear = document.getElementById('btn-cond-clear');
+      const btnBlurry = document.getElementById('btn-cond-blurry');
+      const visualLayer = document.getElementById('simulated-image-layer');
+      const badgeQual = document.getElementById('badge-quality');
+      const textLaplacian = document.getElementById('text-laplacian');
+      const barLaplacian = document.getElementById('bar-laplacian');
+
+      if (cond === 'clear') {
+        btnClear.className = "p-2.5 bg-teal-500/15 border border-teal-500/30 text-teal-400 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition";
+        btnBlurry.className = "p-2.5 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition hover:border-red-500/30 hover:text-red-400";
+        visualLayer.style.filter = "blur(0px)";
+        badgeQual.className = "self-start px-2 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-extrabold tracking-wider uppercase rounded border border-emerald-500/30";
+        badgeQual.textContent = "KUALITAS: BAIK (SIAP OCR)";
+        textLaplacian.textContent = "84.2 (Lolos Ambang Batas >50)";
+        textLaplacian.className = "font-semibold text-emerald-400";
+        barLaplacian.className = "bg-emerald-400 h-1.5 rounded-full transition-all duration-300";
+        barLaplacian.style.width = "84%";
+      } else {
+        btnBlurry.className = "p-2.5 bg-red-500/15 border border-red-500/30 text-red-400 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition";
+        btnClear.className = "p-2.5 bg-slate-900 border border-slate-800 text-slate-400 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition hover:border-teal-500/30 hover:text-teal-400";
+        visualLayer.style.filter = "blur(6px)";
+        badgeQual.className = "self-start px-2 py-0.5 bg-red-500/20 text-red-400 text-[10px] font-extrabold tracking-wider uppercase rounded border border-red-500/30";
+        badgeQual.textContent = "KUALITAS: BURUK (LAPORAN ERROR)";
+        textLaplacian.textContent = "21.5 (TIDAK Lolos Ambang Batas >50)";
+        textLaplacian.className = "font-semibold text-red-400";
+        barLaplacian.className = "bg-red-400 h-1.5 rounded-full transition-all duration-300";
+        barLaplacian.style.width = "21%";
+      }
+    }
+
+    // Simulasi Memanggil Gemini AI API
+    async function processOCR() {
+      const loader = document.getElementById('ocr-loader');
+      const loaderMsg = document.getElementById('loader-message');
+      const outputText = document.getElementById('json-output-text');
+      const statusBadge = document.getElementById('badge-api-status');
+      const encryptionIcon = document.getElementById('encryption-icon-container');
+      const encryptionTitle = document.getElementById('encryption-title');
+      const encryptionDesc = document.getElementById('encryption-desc');
+      const dupPanel = document.getElementById('duplication-panel');
+
+      // Reset Panel Duplikasi
+      dupPanel.classList.add('hidden');
+
+      // Tampilkan Animasi Mengirim Data
+      loader.classList.remove('hidden');
+      statusBadge.textContent = "MENGIRIM...";
+      statusBadge.className = "px-2.5 py-0.5 bg-yellow-500/20 text-yellow-400 text-[10px] font-bold rounded-full border border-yellow-500/30";
+
+      // Langkah 1: Simulasi Enkripsi Lokal
+      loaderMsg.textContent = "Enkripsi data KTP lokal dengan kunci AES-256...";
+      await delay(1200);
+
+      // Langkah 2: Proses API Call
+      loaderMsg.textContent = "Menganalisis gambar menggunakan Gemini 2.5 Flash...";
+      await delay(1500);
+
+      // Jika kondisi Buram
+      if (imgCondition === 'blurry') {
+        statusBadge.textContent = "ERROR 422";
+        statusBadge.className = "px-2.5 py-0.5 bg-red-500/20 text-red-400 text-[10px] font-bold rounded-full border border-red-500/30";
+        outputText.textContent = JSON.stringify(mockData[selectedDoc].blurry, null, 2);
+        outputText.className = "text-xs text-red-400 code-font whitespace-pre-wrap leading-relaxed";
+        
+        // Sesuaikan indikator keamanan
+        encryptionIcon.className = "p-2 bg-yellow-500/10 rounded-lg text-yellow-400";
+        encryptionTitle.textContent = "Penanganan Gagal OCR Aktif";
+        encryptionDesc.textContent = "Protokol mitigasi foto buram diaktifkan; transmisi luar dibatalkan.";
+        
+        loader.classList.add('hidden');
+        return;
+      }
+
+      // Jika Kondisi Terang & Sukses
+      statusBadge.textContent = "SUKSES 200";
+      statusBadge.className = "px-2.5 py-0.5 bg-emerald-500/20 text-emerald-400 text-[10px] font-bold rounded-full border border-emerald-500/30";
+      
+      const successfulResult = mockData[selectedDoc].clear;
+      outputText.textContent = JSON.stringify(successfulResult, null, 2);
+      outputText.className = "text-xs text-emerald-400 code-font whitespace-pre-wrap leading-relaxed";
+
+      // Tampilkan Analisis Semantik
+      dupPanel.classList.remove('hidden');
+      const dupAnalysisText = document.getElementById('duplication-analysis');
+
+      if (selectedDoc === 'ktp') {
+        dupAnalysisText.innerHTML = `
+          <strong class="text-yellow-400 font-semibold">[Peringatan Semantik]</strong> Terdeteksi kemiripan data sebesar <span class="text-teal-400 font-semibold">94.3%</span> dengan rekam medis warga bernama <span class="italic text-slate-100">"Siti Aminah M."</span> di alamat yang sama.<br>
+          <span class="text-slate-400 mt-1 block">Tindakan AI: Menggabungkan ID database secara semantik untuk mencegah entri ganda.</span>
+        `;
+      } else if (selectedDoc === 'kk') {
+        dupAnalysisText.innerHTML = `
+          <strong class="text-emerald-400 font-semibold">[Validasi Semantik Sukses]</strong> Nama <span class="italic text-slate-100">"M. RIZKI ASTANA"</span> divalidasi cocok dengan Akta Anak sebagai <span class="italic text-slate-100">"MUHAMMAD RIZKY ASTANA"</span>.<br>
+          <span class="text-slate-400 mt-1 block">Variansi singkatan 'M.' dan ejaan 'Rizki/Rizky' berhasil dipetakan secara terpadu.</span>
+        `;
+      } else {
+        dupAnalysisText.innerHTML = `
+          <strong class="text-teal-400 font-semibold">[Validasi Silang Kependudukan]</strong> Data anak <span class="italic text-slate-100">"NAILA KHAIRUNNISA"</span> berhasil dicocokkan dengan entri lahir Posyandu tahun 2021.<br>
+          <span class="text-slate-400 mt-1 block">Kesesuaian tanggal lahir: 100%. Tidak terdeteksi duplikasi.</span>
+        `;
+      }
+
+      // Sesuaikan indikator keamanan
+      encryptionIcon.className = "p-2 bg-emerald-500/10 rounded-lg text-emerald-400";
+      encryptionTitle.textContent = "Protokol Enkripsi Berhasil";
+      encryptionDesc.textContent = "Data warga berhasil terenkripsi di database pusat (AES-256).";
+
+      loader.classList.add('hidden');
+    }
+
+    // Pembantu Waktu Tunggu (Delay)
+    function delay(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    // Modal Manager
+    function showDetailModal(topic) {
+      const modal = document.getElementById('detail-modal');
+      const title = document.getElementById('modal-title');
+      const content = document.getElementById('modal-content');
+
+      modal.classList.remove('hidden');
+
+      if (topic === 'arsitektur') {
+        title.innerHTML = `<i data-lucide="smartphone" class="text-teal-400 w-5 h-5"></i> Pembahasan 1: Arsitektur Alur & Penanganan Buram`;
+        content.innerHTML = `
+          <div class="space-y-4">
+            <h4 class="text-teal-400 font-bold text-base">Alur Transmisi & Ekstraksi AI</h4>
+            <p>
+              Proses digitalisasi didesain untuk berjalan secepat dan semudah mungkin di lapangan oleh kader posyandu dengan alur taktis berikut:
+            </p>
+            <ol class="list-decimal pl-5 space-y-2 text-slate-300">
+              <li>
+                <strong class="text-slate-200">Pengambilan Gambar:</strong> Kamera smartphone mengambil foto dokumen fisik melalui antarmuka aplikasi web responsif.
+              </li>
+              <li>
+                <strong class="text-slate-200">Filter Pra-Pemrosesan Lokal:</strong> JavaScript menguji resolusi, tingkat kontras, dan ketajaman citra (menggunakan algoritma <em>Laplacian Variance</em> pada Canvas HTML5). Proses ini tidak memerlukan kuota internet.
+              </li>
+              <li>
+                <strong class="text-slate-200">Transmisi API Gemini:</strong> Dokumen yang lolos seleksi dikirimkan dengan format Base64 yang telah dipadatkan ke endpoint aman API Gemini.
+              </li>
+              <li>
+                <strong class="text-slate-200">Structured Output (JSON):</strong> Gemini memilah data menggunakan fitur <code>responseSchema</code> untuk mengembalikan struktur data kependudukan secara otomatis tanpa perlu re-parsing teks manual.
+              </li>
+            </ol>
+
+            <h4 class="text-teal-400 font-bold text-base mt-6">Analisis Penanganan Error Foto Buram</h4>
+            <p>
+              Di area pedesaan, kondisi pencahayaan dan kualitas smartphone kader seringkali minim. Jika foto terdeteksi buram:
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-slate-300">
+              <li>
+                <strong class="text-red-400">Pencegahan di Sisi Klien (Client-Side Gatekeeper):</strong> Jika nilai varians ketajaman kurang dari threshold (50), aplikasi langsung menghentikan proses sebelum data diunggah ke internet, sehingga menghemat bandwidth internet Posyandu.
+              </li>
+              <li>
+                <strong class="text-slate-200">Panduan Bantuan UI/UX Pintar:</strong> Sistem akan memunculkan petunjuk visual interaktif seperti: <em>"Kurangi bayangan tangan"</em> atau <em>"Dekatkan kamera 10 cm lagi dan nyalakan lampu kilat (flash)"</em>.
+              </li>
+            </ul>
+          </div>
+        `;
+      } else if (topic === 'validasi') {
+        title.innerHTML = `<i data-lucide="git-merge" class="text-teal-400 w-5 h-5"></i> Pembahasan 2: Validasi & Duplikasi Semantik`;
+        content.innerHTML = `
+          <div class="space-y-4">
+            <h4 class="text-teal-400 font-bold text-base">Tantangan Penulisan Nama Khas Indonesia</h4>
+            <p>
+              Database Posyandu sering kali memiliki data ganda atau salah ejaan karena kesalahan pengetikan manual atau inkonsistensi dokumen lama (misalnya: "Muhammad Rizky" vs "M. Rizki").
+            </p>
+            
+            <h4 class="text-teal-400 font-bold text-base mt-4">Pemanfaatan Kecerdasan Bahasa Gemini</h4>
+            <p>
+              Dengan LLM Gemini, kita tidak hanya mencocokkan karakter secara kaku (seperti menggunakan metode regex biasa), melainkan memanfaatkan kemampuan pemahaman semantik bahasa:
+            </p>
+            <ul class="list-disc pl-5 space-y-2 text-slate-300">
+              <li>
+                <strong class="text-slate-200">Resolusi Singkatan & Variasi Ejaan:</strong> Gemini dapat mendeteksi bahwa <span class="italic text-yellow-300">"M."</span> kemungkinan besar adalah singkatan dari <span class="italic text-yellow-300">"Muhammad"</span>, dan bahwa <span class="italic text-yellow-300">"Rizky"</span> serta <span class="italic text-yellow-300">"Rizki"</span> adalah representasi nama yang setara secara fonetis di Indonesia.
+              </li>
+              <li>
+                <strong class="text-slate-200">Kontekstualisasi Alamat:</strong> AI membandingkan data kependudukan secara menyeluruh. Jika nama "Muhammad Rizky" dan "M. Rizki" terdaftar di alamat yang identik (RT/RW dan kelurahan yang sama), sistem akan menyimpulkan dengan kepastian tinggi bahwa keduanya adalah individu yang sama.
+              </li>
+              <li>
+                <strong class="text-slate-200">Pemberitahuan Rekonsiliasi (Merge Confirmation):</strong> Alih-alih langsung menghapus atau membuat entri baru, sistem merekomendasikan kader untuk menyatukan data lama dan data baru secara aman dengan satu klik.
+              </li>
+            </ul>
+          </div>
+        `;
+      } else if (topic === 'keamanan') {
+        title.innerHTML = `<i data-lucide="shield-check" class="text-teal-400 w-5 h-5"></i> Pembahasan 3: Evaluasi Privasi & Kepatuhan UU PDP`;
+        content.innerHTML = `
+          <div class="space-y-4">
+            <h4 class="text-red-400 font-bold text-base">Evaluasi Risiko Data Sensitif</h4>
+            <p>
+              Mengirimkan data pribadi mentah (KTP/KK) langsung ke API eksternal tanpa pengamanan dapat melanggar Undang-Undang Perlindungan Data Pribadi (UU PDP) Indonesia yang sanksinya sangat berat.
+            </p>
+
+            <h4 class="text-teal-400 font-bold text-base mt-4">Strategi Keamanan & Kepatuhan Wajib</h4>
+            <ol class="list-decimal pl-5 space-y-2 text-slate-300">
+              <li>
+                <strong class="text-slate-200">Persetujuan Digital Eksplisit (Consent Form):</strong> Sebelum kamera diaktifkan, kader wajib meminta persetujuan lisan/digital dari warga yang bersangkutan mengenai pemrosesan data medis dan kependudukan mereka.
+              </li>
+              <li>
+                <strong class="text-slate-200">Masking & Anonimisasi Sisi Klien (Local Masking):</strong> NIK (Nomor Induk Kependudukan) disamarkan di sisi browser (misal: 321605******0002) sebelum dikirimkan untuk pencocokan umum. Nilai aslinya dikirim menggunakan kanal enkripsi khusus atau database internal Posyandu yang terpisah dari mesin kecerdasan buatan.
+              </li>
+              <li>
+                <strong class="text-slate-200">Enkripsi AES-256 & TLS 1.3:</strong> Semua data yang disimpan di server posyandu dienkripsi dengan standar militer AES-256, dan pengiriman paket data dilindungi oleh HTTPS (TLS 1.3) untuk mencegah penyadapan di jaringan seluler.
+              </li>
+              <li>
+                <strong class="text-slate-200">Perjanjian Pemrosesan Data (DPA):</strong> Memastikan bahwa API Key yang digunakan adalah versi berbayar perusahaan (Enterprise) di mana Google menjamin bahwa data yang dikirimkan tidak akan digunakan untuk melatih model publik mereka.
+              </li>
+            </ol>
+          </div>
+        `;
+      }
+
+      // Re-inisialisasi ikon lucide di dalam modal
+      setTimeout(() => lucide.createIcons(), 50);
+    }
+
+    function closeModal() {
+      document.getElementById('detail-modal').classList.add('hidden');
+    }
+
+    // Toggle Tampilan Kata Sandi API
+    function togglePasswordVisibility(id) {
+      const input = document.getElementById(id);
+      const eyeIcon = document.getElementById('eye-icon');
+      if (input.type === "password") {
+        input.type = "text";
+        eyeIcon.setAttribute('data-lucide', 'eye-off');
+      } else {
+        input.type = "password";
+        eyeIcon.setAttribute('data-lucide', 'eye');
+      }
+      lucide.createIcons();
+    }
+
+    // Salin ke Papan Klip
+    function copyToClipboard(elementId) {
+      const text = document.getElementById(elementId).textContent;
+      const dummy = document.createElement("textarea");
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand("copy");
+      document.body.removeChild(dummy);
+      
+      // Beri efek notifikasi visual singkat
+      const copyBtn = document.querySelector(`[onclick="copyToClipboard('${elementId}')"]`);
+      const originalText = copyBtn.innerHTML;
+      copyBtn.innerHTML = `<i data-lucide="check" class="w-3 h-3"></i> Tersalin`;
+      lucide.createIcons();
+      setTimeout(() => {
+        copyBtn.innerHTML = originalText;
+        lucide.createIcons();
+      }, 1500);
+    }
+  </script>
+
+</body>
+</html>
